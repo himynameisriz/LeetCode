@@ -9,29 +9,29 @@ namespace LeetCode
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
             var sw = new Stopwatch();
 
             // In Progress
-            Console.WriteLine(ReverseString("hello"));
+            Console.WriteLine(RomanToInt("LMXCIV"));
             // Still understanding
             #region Hamming
             //sw.Reset();
             //var i = HammingDistance(1, 4);
             #endregion
             // Understand
+            #region Reverse String
+            //Console.WriteLine(ReverseString("hello"));
+            #endregion
             #region FizzBuzz
             //var fizzBuzz = FizzBuzz(15);
             //foreach(var fb in fizzBuzz)
             //    Console.WriteLine(fb);
             #endregion
             #region AddSum
-
             //sw.Reset();
             //AddSum(38);
             //var x = Congruence_AddSum(65536);
             //Console.WriteLine(x);
-
             #endregion
             #region Two sums
             //sw.Reset();
@@ -52,6 +52,46 @@ namespace LeetCode
 
 
 
+        public static int RomanToInt(string s)
+        {
+            var num = 0;
+            var charArray = s.ToCharArray();
+            var length = charArray.Length;
+            Dictionary<char, int> intVals = new Dictionary<char, int>()
+            {
+                { 'M', 1000 },
+                { 'D', 500 },
+                { 'C', 100 },
+                { 'L', 50 },
+                { 'X', 10 },
+                { 'V', 5 },
+                { 'I', 1 }
+            };
+
+            if (s.Length == 1)
+                return intVals[s[0]];
+
+            for(int i = 0; i < length; i++)
+            {
+                var c = charArray[i];
+                var value = intVals[c];
+                if (i == length - 1)
+                    num += value;
+                else
+                {
+                    var nextValue = intVals[charArray[i + 1]];
+                    if (value < nextValue)
+                    {
+                        i += 1;
+                        num += nextValue - value;
+                    }
+                    else
+                        num += value;
+                }
+            }
+
+            return num;
+        }
 
         #region Hamming's
         public static int HammingDistance(int x, int y)
