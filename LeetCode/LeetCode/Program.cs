@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 
 namespace LeetCode
 {
@@ -10,25 +11,28 @@ namespace LeetCode
         {
             Console.WriteLine("Hello World!");
             var sw = new Stopwatch();
-            
 
+            // In Progress
+            Console.WriteLine(ReverseString("hello"));
             // Still understanding
             #region Hamming
             //sw.Reset();
             //var i = HammingDistance(1, 4);
             #endregion
-
-
             // Understand
+            #region FizzBuzz
+            //var fizzBuzz = FizzBuzz(15);
+            //foreach(var fb in fizzBuzz)
+            //    Console.WriteLine(fb);
+            #endregion
             #region AddSum
 
-            sw.Reset();
-            AddSum(38);
-            var x = Congruence_AddSum(65536);
-            Console.WriteLine(x);
+            //sw.Reset();
+            //AddSum(38);
+            //var x = Congruence_AddSum(65536);
+            //Console.WriteLine(x);
 
             #endregion
-
             #region Two sums
             //sw.Reset();
 
@@ -45,6 +49,54 @@ namespace LeetCode
             //Console.WriteLine($"Two sums O(n) - Total time: {sw.ElapsedMilliseconds}ms;  Answer = {twoSum_On[0]}, {twoSum_On[1]}"); 
             #endregion
         }
+
+
+
+
+        #region Hamming's
+        public static int HammingDistance(int x, int y)
+        {
+            int count = 0;
+            // bitwise xor
+            int diff = x ^ y;
+            while (diff != 0)
+            {
+                count++;
+                // int-32 
+                diff = diff & (diff - 1);
+            }
+            return count;
+        }
+        #endregion
+
+        public static string ReverseString(string s)
+        {
+            if (String.IsNullOrEmpty(s)) return "";
+            if (s.Length == 1) return s;
+            var charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new String(charArray);
+        }
+
+
+        public static IList<string> FizzBuzz(int n)
+        {
+            var strings = new string[n];
+            for (int i = 1; i <= n; i++)
+            {
+                var s = "";
+                if (i % 3 == 0) s += "Fizz";
+                if (i % 5 == 0) s += "Buzz";
+
+                if (i % 3 != 0 &&
+                    i % 5 != 0)
+                    s += i.ToString();
+
+                strings[i - 1] = s;
+            }
+            return strings;
+        }
+
 
         #region AddSum
         public static int AddSum(int num)
@@ -65,24 +117,9 @@ namespace LeetCode
         public static int Congruence_AddSum(int num)
         {
             return 1 + (num - 1) % 9;
-        } 
-        #endregion
-
-        public static int HammingDistance(int x, int y)
-        {
-            int count = 0;
-            // bitwise xor
-            int diff = x ^ y;
-            while (diff != 0)
-            {
-                count++;
-                // int-32 
-                diff = diff & (diff - 1);
-            }
-            return count;
         }
-
-
+        #endregion
+        #region Two Sum
         public static int[] TwoSum_InProgress(int[] nums, int target)
         {
             /*Given nums = [2, 7, 11, 15], target = 9,
@@ -142,7 +179,8 @@ namespace LeetCode
                     dict.Add(target - nums[i], i);
             }
             return result;
-        }
+        } 
+        #endregion
 
     }
 }
