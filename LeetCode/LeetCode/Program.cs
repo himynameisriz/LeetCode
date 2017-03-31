@@ -12,7 +12,8 @@ namespace LeetCode
             var sw = new Stopwatch();
 
             // In Progress
-            Console.WriteLine(RomanToInt("LMXCIV"));
+
+            //Console.WriteLine(RomanToInt("LMXCIV"));
             // Still understanding
             #region Hamming
             //sw.Reset();
@@ -48,6 +49,36 @@ namespace LeetCode
             //sw.Stop();
             //Console.WriteLine($"Two sums O(n) - Total time: {sw.ElapsedMilliseconds}ms;  Answer = {twoSum_On[0]}, {twoSum_On[1]}"); 
             #endregion
+        }
+
+        public int FindMaxConsecutiveOnes(int[] nums)
+        {
+            var length = nums.Length;
+            var maxCount = 0;
+            var currentCount = 0;
+
+            if (nums.Length == 1) return nums[0] == 0 ? 0 : 1;
+
+            for (int i = 0; i < length; i++)
+            {
+                if (nums[i] == 0)
+                {
+                    if (currentCount > maxCount) maxCount = currentCount;
+                    currentCount = 0;
+                }
+                else currentCount++;
+            }
+            return maxCount > currentCount ? maxCount : currentCount;
+        }
+
+        public int FindMaxConsecutiveOnes_StringSplit(int[] nums)
+        {
+            var fullString = string.Join("", nums);
+            var seperatedStrings = fullString.Split('0');
+            if (seperatedStrings.Length == 0) return 0;
+
+            Array.Sort(seperatedStrings);
+            return seperatedStrings[seperatedStrings.Length - 1].Length;
         }
 
 
