@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace LeetCode
@@ -82,6 +83,38 @@ namespace LeetCode
         }
 
 
+        public int SingleNonDuplicate(int[] nums)
+        {
+            if (nums.Length == 1) return nums[0];
+            var nextNum = 0;
+            var currentNum = 0;
+            for (int i = 0; i < nums.Length; i += 2)
+            {
+                currentNum = nums[i];
+                if (i == nums.Length - 1) return currentNum;
+                nextNum = nums[i + 1];
+                if (currentNum != nextNum) return currentNum;
+            }
+            return 0;
+        }
+
+        public int MajorityElement(int[] nums)
+        {
+            return nums.GroupBy(x => x).OrderBy(x => x.Count()).FirstOrDefault().Count();
+        }
+
+        public int SingleNonDuplicate_Binary(int[] nums)
+        {
+            // binary search
+            int n = nums.Length, lo = 0, hi = n / 2;
+            while (lo < hi)
+            {
+                int m = (lo + hi) / 2;
+                if (nums[2 * m] != nums[2 * m + 1]) hi = m;
+                else lo = m + 1;
+            }
+            return nums[2 * lo];
+        }
 
         public static int RomanToInt(string s)
         {
